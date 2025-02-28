@@ -5,7 +5,7 @@ dotenv.config();
 
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const MONGO_URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/?retryWrites=true&w=majority&appName=MERN`;
+const MONGO_URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/mern-app?retryWrites=true&w=majority&appName=MERN`;
 
 async function connectDatabase() {
   try {
