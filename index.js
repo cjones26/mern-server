@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // Route
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Welcome to the backend');
 });
 app.use('/user', require('./routes/user'));
