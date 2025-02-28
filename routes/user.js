@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const cloudinary = require("../utils/cloudinary");
-const upload = require("../utils/multer");
-const User = require("../model/user");
+const router = require('express').Router();
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../utils/multer');
+const User = require('../model/user');
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -21,7 +21,8 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
+  console.log('getting /users');
   try {
     let user = await User.find();
     res.json(user);
@@ -30,7 +31,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     // Find user by id
     let user = await User.findById(req.params.id);
@@ -39,7 +40,7 @@ router.delete("/:id", async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: 'User not found' });
     }
 
     // Delete image from cloudinary
@@ -51,11 +52,11 @@ router.delete("/:id", async (req, res) => {
     res.json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 
-router.put("/:id", upload.single("image"), async (req, res) => {
+router.put('/:id', upload.single('image'), async (req, res) => {
   try {
     let user = await User.findById(req.params.id);
     // Delete image from cloudinary
@@ -64,7 +65,7 @@ router.put("/:id", upload.single("image"), async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: 'User not found' });
     }
 
     await cloudinary.uploader.destroy(user.cloudinary_id);
@@ -85,7 +86,7 @@ router.put("/:id", upload.single("image"), async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     // Find user by id
     let user = await User.findById(req.params.id);
@@ -94,7 +95,7 @@ router.get("/:id", async (req, res) => {
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: 'User not found' });
     }
     res.json(user);
   } catch (err) {
